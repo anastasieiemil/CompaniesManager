@@ -1,0 +1,88 @@
+﻿@model CompaniesViewModel
+
+@section Top{
+<link rel="stylesheet" href="~/lib/datatable/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="~/lib/dropzone/css/dropzone.css" />
+}
+
+<form method="post" id="antiforg">
+</form>
+<div class="container">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            Companies
+            <div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#load_file_modal">Add Companies</button>
+                <button class="btn btn-success" id="export_csv_btn">Export as CSV</button>
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <table id="companies_table" class="table w-100">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Years in Business</th>
+                        <th>Contact Name</th>
+                        <th>Contact Number</th>
+                        <th>Contact Email</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="load_file_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Load companies files</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <form method="post" id="file_uploader_form" class="form">
+                            <div class="dropzone dz-clickable my-2" id="file_dropzone">
+                                <div class="dz-message ">
+                                    <div class="ms-4">
+                                        <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Drop file here or press click</h3>
+                                        <span class="fs-7 fw-bold text-primary opacity-75">The file type must be csv, hypen or hash. The maximum limit is 20 MB</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="file_type" class="form-label">File Type</label>
+                                <select class="form-select" id="file_type">
+                                    @foreach (var type in Model.FileTypes)
+                                    {
+                                        <option value="@type.Value">@type.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="load_btn">Load</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+<script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/dropzone/js/dropzone-min.js"></script>
+<script src="~/js/pages/companies/index.js" asp-append-version="true"></script>
+}
